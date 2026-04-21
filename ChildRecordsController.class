@@ -1,0 +1,14 @@
+public class ChildRecordsController {
+
+	@AuraEnabled(cacheable=true)
+	public static list<SObject> getRelatedRecords(Id recordId,
+	                                               String childObjectApiName, 
+												   String fieldList, 
+												   String lookupFieldApiName, Integer limitSize ){
+
+	String Soql= 'SELECT ' + fieldList + ' from '+ childObjectApiName + ' where ' +lookupFieldApiName+ ' =:recordId '+ ' LIMIT '+limitSize;	
+	System.debug(Soql);
+	return Database.query(Soql);							
+	}
+
+}
